@@ -7,39 +7,50 @@ app.use((req, res, next) => {
     res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content, Accept, Content-Type, Authorization');
     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, PATCH, OPTIONS');
     next();
-  });
+});
 
-
-app.post('/api/', (req, res, next) => {
+app.post('/api/post', (req, res, next) => {
     console.log(req.body);
     res.status(201).json({
         message: 'Objet créé !'
     });
 })
 
-app.put('/api/:id', (req, res, next) => {
+app.post('/api/post/:id/like', (req, res, next) => {
+
+})
+
+app.post('/api/post/:id/comment', (req, res, next) => {
+
+})
+
+app.put('/api/post/:id', (req, res, next) => {
     res.status(201).json({
         message: 'Objet modifié !'
       });
 })
 
-app.post('/api/:id/like', (req, res, next) => {
+app.delete('/api/like/:id', (req, res, next) => {
 
 })
 
-app.post('/api/:id/comment', (req, res, next) => {
+app.delete('/api/post/:id', (req, res, next) => {
 
 })
 
-app.delete('/api/:id/comment', (req, res, next) => {
+app.delete('/api/comment/:id', (req, res, next) => {
 
 })
 
-app.get('/api/:id', (req, res, next) => {
+app.get('/api/post/:id/comments', (req, res, next) => {
 
 })
 
-app.get('/api/', (req, res, next) => {
+app.get('/api/post/:id', (req, res, next) => {
+
+})
+
+app.get('/api/posts', (req, res, next) => {
     const stuff = [
       {
         _id: 'oeihfzeoi',
