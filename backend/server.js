@@ -1,6 +1,6 @@
 const http = require('http');
 const app = require('./app');
-
+const bodyParser = require('body-parser');
 const mysql = require('mysql');
 
 const db = mysql.createConnection({
@@ -11,13 +11,79 @@ const db = mysql.createConnection({
 
     user: "groupobdd",
 
-    password: "soleil01+"
+    password: "soleil01+",
+
+    multipleStatements : true
 
 });
 
-db.connect(function(err) {
-    if (err) throw err;
-    console.log("Connected to database");
+db.connect((err) => {
+  if (err) throw err;
+  console.log("Connected to database");
+});
+
+/* REQUETE */
+app.use(bodyParser.json());
+
+app.post('/api/post', (req, res, next) => {
+
+  let post = req.body;
+  const sql = "SET @id = ?; SET @post_content = ?; SET @image_url = ?; SET @user_id = ?; SET @created = ?; SET @updated = ?; \
+              INSERT INTO Posts VALUES (@id, @post_content, @image_url, @user_id, @created, @updated);";
+  db.query(sql, [post.id, post.post_content, post.image_url, post.user_id, post.created, post.updated], (err, rows, fields) => {
+    if(!err)
+    res.send(rows);
+    else
+    console.log(err);
+  });
+
+});
+
+app.put('/api/post/:id', (req, res, next) => {
+
+  let post = req.body;
+  const sql = "SET @id = ?; SET @post_content = ?; SET @image_url = ?; SET @user_id = ?; SET @created = ?; SET @updated = ?; \
+              INSERT INTO Posts VALUES (@id, @post_content, @image_url, @user_id, @created, @updated);";
+  db.query(sql, [post.id, post.post_content, post.image_url, post.user_id, post.created, post.updated], [req.params.id], (err, rows, fields) => {
+    if(!err)
+    res.send('Updated successfully !');
+    else
+    console.log(err);
+  });
+
+});
+
+app.delete('/api/post/:id', (req, res) => {
+
+  db.query('DELETE FROM Posts WHERE id = ?', [req.params.id] , (err, rows, fields) => {
+    if(!err)
+    res.send('Deleted successfully');
+    else
+    console.log(err);
+  })
+
+});
+
+app.get('/api/post', (req, res) => {
+
+  db.query('SELECT * FROM Posts', (err, rows, fields) => {
+    if(!err)
+    res.send(rows);
+    else
+    console.log(err);
+  })
+
+});
+
+app.get('/api/post/:id', (req, res) => {
+
+  db.query('SELECT * FROM Posts WHERE id = ?', [req.params.id] , (err, rows, fields) => {
+    if(!err)
+    res.send(rows);
+    else
+    console.log(err);
+  })
+
 });
 
 const normalizePort = val => {

@@ -1,11 +1,16 @@
-app.post('/api/signin', (req, res, next) => {
+const express = require('express');
+const router = express.Router();
+
+router.post('/signin', (req, res, next) => {
 
 })
 
-app.post('/api/signup', (req, res, next) => {
+router.post('/signup', (req, res, next) => {
 
 })
 
-app.delete('/api/user/:id', (req, res, next) => {
+router.delete('/:id', (req, res, next) => {
 
 })
+
+module.exports = router;
