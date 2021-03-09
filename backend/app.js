@@ -14,15 +14,6 @@ app.use((req, res, next) => {
 
 app.use(bodyParser.json());
 
-/* POSTS */
-
-app.delete('/api/like/:id', (req, res, next) => {
-
-})
-
-app.delete('/api/comment/:id', (req, res, next) => {
-
-})
 
 app.use('/api/post', postRoutes);
 app.use('/api/user', userRoutes);
