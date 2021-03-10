@@ -16,7 +16,6 @@ app.post('/:id/like', (req, res, next) => {
 })
 
 app.post('/:id/comment', (req, res, next) => {
-
 })
 
 app.get('/:id/comments', (req, res, next) => {
