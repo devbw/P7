@@ -1,16 +1,12 @@
 const express = require('express');
 const router = express.Router();
+const userController = require('../controllers/users');
 
-router.post('/signin', (req, res, next) => {
 
-})
+router.post('/signup', userController.signUp);
 
-router.post('/signup', (req, res, next) => {
+router.post('/login', userController.login);
 
-})
-
-router.delete('/:id', (req, res, next) => {
-
-})
+/*router.delete('/:id', userController.delete);*/
 
 module.exports = router;
