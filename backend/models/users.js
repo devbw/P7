@@ -21,20 +21,22 @@ exports.create = (post) => {
   });
 };
 
-exports.findOneBy = (field, email) => {
+exports.findOneBy = (field, value) => {
   return new Promise((resolve, reject) => {
     const db = connectionDb.getDbConnection();
 
     const string = `SELECT * FROM Users WHERE ${field} = ?`;
-    const inserts = [email];
+    const inserts = [value];
     const sql = mysql.format(string, inserts);
 
     db.query(sql, (error, user) => {
       if (user.length === 0) {
+        // return to catch
         reject(new Error("Votre adresse mail est invalide"));
       }
       const selectedUser = user[0];
 
+      // return to then
       resolve(selectedUser);
     });
   });

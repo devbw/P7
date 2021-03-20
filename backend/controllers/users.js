@@ -18,11 +18,17 @@ exports.login = (req, res, next) => {
   const { email, password } = req.body;
 
   if (!email && !password) {
-    reject(new Error("Veuillez rentrer vos identifiants"));
+    return res.status(400).json({
+      message: "Veuillez rentrer vos identifiants",
+    });
   } else if (!email) {
-    reject(new Error("Veuillez renseigner votre email"));
+    return res.status(400).json({
+      message: "Veuillez rentrer votre email",
+    });
   } else if (!password) {
-    reject(new Error("Veuillez rentrer votre mot de passe"));
+    return res.status(400).json({
+      message: "Veuillez rentrer votre mot de passe",
+    });
   }
 
   userModel.findOneByEmail(email)
@@ -30,12 +36,11 @@ exports.login = (req, res, next) => {
       bcrypt.compare(password, user.password)
         .then((valid) => {
           if (!valid) {
-            return res.status(200).json({
+            return res.status(401).json({
               message: "Votre mot de passe est invalide",
             });
           }
 
-          console.log(process.env);
           res.status(200).json({
             token: jwt.sign(
               {
@@ -48,11 +53,18 @@ exports.login = (req, res, next) => {
               }
             ),
           });
+        }).catch((err) => {
+          return res.status(401).json({
+            message: err,
+          });
         });
     })
     .catch((err) => {
       console.dir(err);
-      res.send(err);
+
+      res.status(401).json({
+        message: err,
+      });
     });
 }
 
