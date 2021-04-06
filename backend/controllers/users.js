@@ -1,9 +1,10 @@
 const userModel = require('../models/users');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
+const jwt_decode = require('jwt-decode');
 
 exports.signUp = (req, res, next) => {
-
+  /** @todo validation */
   userModel.create(req.body)
   .then((rows) => {
     res.send(rows);
@@ -15,6 +16,7 @@ exports.signUp = (req, res, next) => {
 }
 
 exports.login = (req, res, next) => {
+  /** @todo validation */
   const { email, password } = req.body;
 
   if (!email && !password) {
@@ -68,6 +70,22 @@ exports.login = (req, res, next) => {
     });
 }
 
-/*exports.deleteAccount = (req, res, next) => {
+exports.deleteAccount = (req, res, next) => {
+  // TODO jwt userId === user.id
+  /*const token = req.headers.authorization.split(" ")[1];
+  const decoded = jwt_decode(token);
+  const userId = decoded.userId;
+  const user_id = req.params.id;
 
-}*/
+  if( userId !== user_id ) {
+    return res.status(400).send("Vous n'êtes pas autorisé à supprimer ce post");
+  }*/
+
+  userModel.deleteOne(req.params.id)
+    .then((rows) => {
+        res.send("Votre compte a bien été supprimé");
+    })
+    .catch((err) => {
+        console.log(err);
+    })
+}

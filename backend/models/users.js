@@ -45,3 +45,17 @@ exports.findOneBy = (field, value) => {
 exports.findOneByEmail = (email) => {
   return this.findOneBy('email', email);
 };
+
+exports.deleteOne = (id) => {
+  return new Promise((resolve, reject) => {
+
+    const db = connectionDb.getDbConnection();
+
+    db.query("DELETE FROM Users WHERE id = ?", [id], (err, rows, fields) => {
+    if(err)
+      reject(err);
+
+    resolve('Deleted Successfully');
+    })
+  })
+}
