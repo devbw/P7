@@ -54,7 +54,7 @@ exports.deleteOne = (id) => {
 
     const db = connectionDb.getDbConnection();
 
-    db.query('DELETE FROM Posts WHERE id = ? ON CASCADE', [id] , (err, rows, fields) => {
+    db.query('DELETE FROM Posts WHERE id = ?', [id] , (err, rows, fields) => {
       if(err)
         reject(err);
 

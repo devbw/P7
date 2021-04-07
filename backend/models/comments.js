@@ -59,6 +59,5 @@ exports.deleteOne = (id) => {
 
       resolve('Deleted Successfully');
     })
-
   })
 }

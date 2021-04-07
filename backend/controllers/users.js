@@ -19,27 +19,18 @@ exports.login = (req, res, next) => {
   /** @todo validation */
   const { email, password } = req.body;
 
-  if (!email && !password) {
+  if (!email || !password) {
     return res.status(400).json({
-      message: "Veuillez rentrer vos identifiants",
-    });
-  } else if (!email) {
-    return res.status(400).json({
-      message: "Veuillez rentrer votre email",
-    });
-  } else if (!password) {
-    return res.status(400).json({
-      message: "Veuillez rentrer votre mot de passe",
+      message: "Identifiant ou mot de passe incorrect",
     });
   }
-
   userModel.findOneByEmail(email)
     .then((user) => {
       bcrypt.compare(password, user.password)
         .then((valid) => {
           if (!valid) {
             return res.status(401).json({
-              message: "Votre mot de passe est invalide",
+              message: "Identifiant ou mot de passe incorrect",
             });
           }
 
@@ -71,19 +62,21 @@ exports.login = (req, res, next) => {
 }
 
 exports.deleteAccount = (req, res, next) => {
-  // TODO jwt userId === user.id
-  /*const token = req.headers.authorization.split(" ")[1];
+  //TODO jwt userId === user.id
+  const token = req.headers.authorization.split(" ")[1];
   const decoded = jwt_decode(token);
   const userId = decoded.userId;
   const user_id = req.params.id;
 
-  if( userId !== user_id ) {
-    return res.status(400).send("Vous n'êtes pas autorisé à supprimer ce post");
-  }*/
+  console.log(user_id, userId);
+
+  if( userId != user_id ) {
+    return res.status(400).send("Vous n'êtes pas autorisé à supprimer cet utilisateur");
+  }
 
   userModel.deleteOne(req.params.id)
     .then((rows) => {
-        res.send("Votre compte a bien été supprimé");
+        res.send(rows);
     })
     .catch((err) => {
         console.log(err);
