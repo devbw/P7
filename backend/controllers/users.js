@@ -66,15 +66,30 @@ exports.deleteAccount = (req, res, next) => {
   const token = req.headers.authorization.split(" ")[1];
   const decoded = jwt_decode(token);
   const userId = decoded.userId;
-  const user_id = req.params.id;
+  const user_id = parseInt(req.params.id);
 
-  console.log(user_id, userId);
+  userModel.getOne(userId)
+  .then((rows)=> {
+    const admin = rows[0].user_admin;
+    if( (userId != user_id) && (admin === 0) ) {
+      return res.status(400).send("Vous n'êtes pas autorisé à supprimer cet utilisateur");
+    }
+    userModel.deleteOne(req.params.id)
+    .then((rows) => {
+      res.send(rows);
+    })
+    .catch((err) => {
+      return res.status(400).send("Vous n'êtes pas autorisé à supprimer cet utilisateur");
+    })
 
-  if( userId != user_id ) {
-    return res.status(400).send("Vous n'êtes pas autorisé à supprimer cet utilisateur");
-  }
+  })
+  .catch((err) => {
+    console.log(err);
+  })
+}
 
-  userModel.deleteOne(req.params.id)
+exports.getOneUser = (req, res, next) => {
+  userModel.getOne(req.params.userId)
     .then((rows) => {
         res.send(rows);
     })

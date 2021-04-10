@@ -1,4 +1,5 @@
 const postModel = require('../models/posts');
+const userModel = require('../models/users');
 const jwt_decode = require('jwt-decode');
 const utils = require('../services/utils');
 const isLength = require('validator/lib/isLength');
@@ -55,12 +56,19 @@ exports.deletePost = (req, res, next) => {
         const decoded = jwt_decode(token);
         const userId = decoded.userId;
 
-        if( userId !== user_id ) {
-            return res.status(400).send("Vous n'êtes pas autorisé à faire cette action");
-        }
-        postModel.deleteOne(req.params.id)
+        userModel.getOne(userId)
         .then((rows) => {
-            res.send(rows);
+            const admin = rows[0].user_admin;
+            if( (userId !== user_id) && (admin === 0) ) {
+              return res.status(400).send("Vous n'êtes pas autorisé à faire cette action");
+            }
+            postModel.deleteOne(req.params.id)
+            .then((rows) => {
+                res.send(rows);
+            })
+            .catch((err) => {
+                console.log(err);
+            })
         })
         .catch((err) => {
             console.log(err);
@@ -102,6 +110,4 @@ exports.updatePost = (req, res, next) => {
     .catch((err) => {
         console.log(err);
     })
-
-
 };

@@ -1,6 +1,6 @@
 const connectionDb = require('../services/connection-bdd');
 
-exports.like = (userId, postId) => {
+exports.createLike = (userId, postId) => {
   return new Promise((resolve, reject) => {
 
     const db = connectionDb.getDbConnection();
@@ -11,11 +11,11 @@ exports.like = (userId, postId) => {
       reject(err);
 
       resolve('Liked successfully');
-    })
-  })
-}
+    });
+  });
+};
 
-exports.unlike = (id) => {
+exports.deleteLike = (id) => {
   return new Promise((resolve, reject) => {
 
     const db = connectionDb.getDbConnection();
@@ -25,6 +25,19 @@ exports.unlike = (id) => {
         reject(err);
 
       resolve('Unliked Successfully');
-    })
-  })
-}
+    });
+  });
+};
+
+exports.getLike = (id) => {
+  return new Promise((resolve, reject) => {
+    const db = connectionDb.getDbConnection();
+
+    db.query('SELECT * FROM Likes WHERE id = ?', [id] , (err, rows, fields) => {
+      if(err || rows.length === 0)
+        reject(err);
+
+      resolve(rows[0]);
+    });
+  });
+};

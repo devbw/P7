@@ -4,6 +4,7 @@ CREATE TABLE Users (
     lastname VARCHAR(40) NOT NULL,
     email VARCHAR(40) NOT NULL,
     password VARCHAR(100) NOT NULL,
+    user_admin TINYINT(1) NOT NULL,
     created DATETIME,
     updated DATETIME,
     PRIMARY KEY (id)

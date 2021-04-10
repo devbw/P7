@@ -9,7 +9,7 @@ exports.create = (post) => {
     const saltRounds = 10;
 
     bcrypt.hash(post.password, saltRounds, (err, hash) => {
-      const sql = "INSERT INTO Users (firstname, lastname, email, password, created, updated) VALUES (?, ?, ?, ?, NOW(), NOW())";
+      const sql = "INSERT INTO Users (firstname, lastname, email, password, user_admin, created, updated) VALUES (?, ?, ?, ?, 0, NOW(), NOW())";
 
       db.query(sql, [post.firstname, post.lastname, post.email, hash], (err, rows, fields) => {
         if(err)
@@ -55,7 +55,21 @@ exports.deleteOne = (id) => {
     if(err)
       reject(err);
 
-    resolve('Deleted Successfully');
+    resolve("Deleted successfully");
+    })
+  })
+}
+
+exports.getOne = (id) => {
+  return new Promise((resolve, reject) => {
+
+    const db = connectionDb.getDbConnection();
+
+    db.query("SELECT * FROM Users WHERE id = ?", [id], (err, rows, fields) => {
+    if(err)
+      reject(err);
+
+    resolve(rows);
     })
   })
 }

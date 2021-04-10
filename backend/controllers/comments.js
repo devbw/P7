@@ -1,7 +1,8 @@
 const jwt_decode = require('jwt-decode');
 const commentModel = require('../models/comments');
-const utils = require('../services/utils');
 const postModel = require('../models/posts');
+const userModel = require('../models/users');
+const utils = require('../services/utils');
 const isLength = require('validator/lib/isLength');
 const isInt = require('validator/lib/isInt');
 
@@ -74,16 +75,6 @@ exports.modifyComment = (req, res, next) => {
   })
 }
 
-exports.getOneComment = (req, res, next) => {
-  commentModel.getOne(req.params.commentId)
-  .then((rows) => {
-      res.send(rows);
-  })
-  .catch((err) => {
-      console.log(err);
-  })
-};
-
 exports.deleteComment = (req, res, next) => {
   commentModel.getOne(req.params.commentId)
   .then((rows) => {
@@ -92,18 +83,45 @@ exports.deleteComment = (req, res, next) => {
     const decoded = jwt_decode(token);
     const userId = decoded.userId;
 
-    if( userId !== user_id ) {
-      return res.status(400).send("Vous n'êtes pas autorisé à supprimer ce post");
-    }
-    commentModel.deleteOne(req.params.commentId)
+    userModel.getOne(userId)
     .then((rows) => {
-        res.send(rows);
+      const admin = rows[0].user_admin;
+      if( (userId != user_id) && (admin === 0) ) {
+        return res.status(400).send("Vous n'êtes pas autorisé à supprimer ce commentaire");
+      }
+      commentModel.deleteOne(req.params.commentId)
+      .then((rows) => {
+          res.send(rows);
+      })
+      .catch((err) => {
+          console.log(err);
+      })
     })
-    .catch((err) => {
-        console.log(err);
+    .catch((err) =>{
+      return res.status(400).send("Vous n'êtes pas autorisé à supprimer ce commentaire");
     })
   })
   .catch((err) => {
     res.status(500).send("Vous n'avez pas la possibilité de faire cette action")
+  })
+}
+
+exports.getOneComment = (req, res, next) => {
+  commentModel.getOne(req.params.commentId)
+  .then((rows) => {
+    res.send(rows);
+  })
+  .catch((err) => {
+    res.status(500).send("Vous n'avez pas la possibilité de faire cette action")
+  })
+};
+
+exports.getCommentsPost = (req, res, next) => {
+  commentModel.getCommentsByPost(req.params.postId)
+  .then((rows) => {
+    res.send(rows);
+  })
+  .catch((err) => {
+    console.log(err);
   })
 }

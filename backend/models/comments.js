@@ -61,3 +61,16 @@ exports.deleteOne = (id) => {
     })
   })
 }
+
+exports.getCommentsByPost = (post_id) => {
+  return new Promise((resolve, reject) => {
+    const db = connectionDb.getDbConnection();
+
+    db.query('SELECT user_id, comment FROM Comments WHERE post_id = ?', [post_id], (err, rows, fields) => {
+      if(err)
+        reject(err);
+
+      resolve(rows);
+    });
+  });
+};
