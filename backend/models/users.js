@@ -24,7 +24,6 @@ exports.create = (post) => {
 exports.findOneBy = (field, value) => {
   return new Promise((resolve, reject) => {
     const db = connectionDb.getDbConnection();
-
     const string = `SELECT * FROM Users WHERE ${field} = ?`;
     const inserts = [value];
     const sql = mysql.format(string, inserts);
@@ -35,7 +34,6 @@ exports.findOneBy = (field, value) => {
         reject(new Error("Votre adresse mail est invalide"));
       }
       const selectedUser = user[0];
-
       // return to then
       resolve(selectedUser);
     });
@@ -50,26 +48,24 @@ exports.deleteOne = (id) => {
   return new Promise((resolve, reject) => {
 
     const db = connectionDb.getDbConnection();
-
     db.query("DELETE FROM Users WHERE id = ?", [id], (err, rows, fields) => {
     if(err)
       reject(err);
 
     resolve("Deleted successfully");
-    })
-  })
-}
+    });
+  });
+};
 
 exports.getOne = (id) => {
   return new Promise((resolve, reject) => {
 
     const db = connectionDb.getDbConnection();
-
     db.query("SELECT * FROM Users WHERE id = ?", [id], (err, rows, fields) => {
     if(err)
       reject(err);
 
     resolve(rows);
-    })
-  })
-}
+    });
+  });
+};

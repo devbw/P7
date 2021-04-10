@@ -15,7 +15,6 @@ ALTER TABLE Users ADD UNIQUE (email);
 CREATE TABLE Posts (
     id SMALLINT UNSIGNED NOT NULL AUTO_INCREMENT,
     post_content VARCHAR(255) NOT NULL,
-    image_url VARCHAR(255) NOT NULL,
     user_id SMALLINT UNSIGNED NOT NULL,
     created DATETIME,
     updated DATETIME,

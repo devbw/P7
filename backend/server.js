@@ -1,28 +1,6 @@
 const http = require('http');
 const app = require('./app');
 
-/* REQUETE */
-
-app.delete('/api/like/:id', (req, res, next) => {
-
-})
-
-app.delete('/api/comment/:id', (req, res, next) => {
-
-})
-
-app.post('/:id/like', (req, res, next) => {
-
-})
-
-app.post('/:id/comment', (req, res, next) => {
-})
-
-app.get('/:id/comments', (req, res, next) => {
-
-})
-/* FIN REQUETE */
-
 const normalizePort = val => {
   const port = parseInt(val, 10);
 

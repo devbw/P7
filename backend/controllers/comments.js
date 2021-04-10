@@ -17,12 +17,10 @@ exports.createComment = (req, res, next) => {
       if (!req.body.comment) {
         return res.status(400).send("Il n'y a pas de commentaire.");
       }
-
       const comment = utils.strip_tags(req.body.comment).trim();
       if ( !isLength(comment, { min: 2, max: 255 }) ) {
         return res.status(400).send("La longueur du commentaire n'est pas acceptée");
       }
-
       const token = req.headers.authorization.split(" ")[1];
       const decoded = jwt_decode(token);
       const userId = decoded.userId;
@@ -53,13 +51,11 @@ exports.modifyComment = (req, res, next) => {
     if( userId !== user_id ) {
       return res.status(400).send("Vous n'êtes pas autorisé à modifier ce post");
     }
-
     const commentId = req.params.commentId;
     const comment = utils.strip_tags(req.body.comment).trim();
     if ( !isLength(comment, { min: 2, max: 255 }) ) {
       return res.status(400).send("La longueur du commentaire n'est pas acceptée");
     }
-
     commentModel.modify(comment, commentId)
     .then((rows) => {
       res.send(rows);
@@ -68,7 +64,6 @@ exports.modifyComment = (req, res, next) => {
       console.error(err);
       res.status(500).send();
     });
-
   })
   .catch((err) => {
     res.status(500).send("Vous n'avez pas la possibilité de faire cette action")

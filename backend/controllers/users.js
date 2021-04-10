@@ -81,7 +81,6 @@ exports.deleteAccount = (req, res, next) => {
     .catch((err) => {
       return res.status(400).send("Vous n'êtes pas autorisé à supprimer cet utilisateur");
     })
-
   })
   .catch((err) => {
     console.log(err);
