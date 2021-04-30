@@ -14,7 +14,7 @@ exports.createPost = (req, res, next) => {
     const decoded = jwt_decode(token);
     const userId = decoded.userId;
 
-    postModel.create(post_content, req.body, userId)
+    postModel.create(post_content, userId)
     .then((rows) => {
       res.send(rows);
     })
@@ -95,7 +95,7 @@ exports.updatePost = (req, res, next) => {
         if ( !isLength(post_content, { min: 2, max: 255 }) ) {
             return res.status(400).send("La longueur du commentaire n'est pas acceptée");
         }
-        postModel.updateOne(post_content, req.body, req.params.id )
+        postModel.updateOne(post_content, req.params.id )
         .then((rows) => {
             res.send(rows);
         })

@@ -1,11 +1,11 @@
 const connectionDb = require('../services/connection-bdd');
 
-exports.create = (post_content, post, userId) => {
+exports.create = (post_content, userId) => {
   return new Promise((resolve, reject) => {
 
     const db = connectionDb.getDbConnection();
-    const sql = "INSERT INTO Posts (post_content, image_url, user_id, created, updated) VALUES (?, ?, ?, NOW(), NOW())";
-    db.query(sql, [post_content, post.image_url, userId], (err, rows, fields) => {
+    const sql = "INSERT INTO Posts (post_content, user_id, created, updated) VALUES (?, ?, NOW(), NOW())";
+    db.query(sql, [post_content, userId], (err, rows, fields) => {
       if(err)
         reject(err);
 
@@ -31,7 +31,7 @@ exports.getAll = () => {
   return new Promise((resolve, reject) => {
 
     const db = connectionDb.getDbConnection();
-    db.query('SELECT * FROM Posts', (err, rows, fields) => {
+    db.query('SELECT * FROM Posts ORDER BY id DESC', (err, rows, fields) => {
       if(err)
         reject(err);
 
@@ -53,12 +53,12 @@ exports.deleteOne = (id) => {
   });
 };
 
-exports.updateOne = (post_content, body, id) => {
+exports.updateOne = (post_content, id) => {
   return new Promise((resolve, reject) => {
 
     const db = connectionDb.getDbConnection();
-    const sql = "UPDATE Posts SET post_content = ?, image_url = ?, updated = NOW() WHERE id = ?";
-    db.query(sql, [post_content, body.image_url, id], (err, rows, fields) => {
+    const sql = "UPDATE Posts SET post_content = ?, updated = NOW() WHERE id = ?";
+    db.query(sql, [post_content, id], (err, rows, fields) => {
       if(err)
         reject(err);
 
