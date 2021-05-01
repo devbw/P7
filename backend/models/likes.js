@@ -14,27 +14,15 @@ exports.createLike = (userId, postId) => {
   });
 };
 
-exports.deleteLike = (id) => {
+exports.deleteLike = (post_id, user_id) => {
   return new Promise((resolve, reject) => {
 
     const db = connectionDb.getDbConnection();
-    db.query('DELETE FROM Likes WHERE id = ?', [id] , (err, rows, fields) => {
+    db.query('DELETE FROM Likes WHERE post_id = ? AND user_id = ?', [post_id, user_id] , (err, rows, fields) => {
       if(err)
         reject(err);
 
       resolve('Unliked Successfully');
-    });
-  });
-};
-
-exports.getLike = (id) => {
-  return new Promise((resolve, reject) => {
-    const db = connectionDb.getDbConnection();
-    db.query('SELECT * FROM Likes WHERE id = ?', [id] , (err, rows, fields) => {
-      if(err || rows.length === 0)
-        reject(err);
-
-      resolve(rows[0]);
     });
   });
 };

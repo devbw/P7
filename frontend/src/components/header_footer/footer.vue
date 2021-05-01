@@ -4,7 +4,7 @@
             <router-link tag="i" to="/" class="fas fa-home"></router-link>
         </div>
         <div>
-            <i class="fas fa-plus"></i>
+            <router-link tag="i" to="/post" class="fas fa-plus"></router-link>
         </div>
         <div>
             <i class="fas fa-user"></i>
@@ -30,5 +30,6 @@
         color: white;
         padding: 15px;
         font-size: 1.2em;
+        cursor: pointer;
     }
 </style>

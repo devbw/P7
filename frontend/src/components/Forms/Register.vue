@@ -43,8 +43,8 @@ export default{
           email: this.email,
           password: this.password
         })
-        .then(function (response) {
-          console.log(response);
+        .then( () => {
+          this.$router.push("/user/login");
         })
         .catch(function (error) {
           console.log(error);

@@ -26,6 +26,18 @@ const routes = [
     path: '/user/register',
     name: 'Register',
     component: () => import(/* webpackChunkName: "register" */ '../views/Register.vue')
+  },
+  {
+    path: '/post',
+    name: 'Post',
+    component: () => import(/* webpackChunkName: "post" */ '../views/Post.vue'),
+    beforeEnter: (to, from, next) => {
+      if(!localStorage.getItem('token')) {
+        next("/user/login");
+      } else {
+        next();
+      }
+    }
   }
 ]
 

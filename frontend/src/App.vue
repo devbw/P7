@@ -22,6 +22,25 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   height: 100%;
+  position: relative;
+}
+.main_container_flex{
+  position: absolute;
+  height: 100%;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+.content{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 1;
+  overflow: scroll;
 }
 .form-login__div-container{
   margin-top: 45px;
@@ -47,5 +66,10 @@ body {
   align-items: center;
   flex-direction: column;
   text-align: center;
+}
+.reset_button{
+  background: transparent;
+  border: none;
+  cursor: pointer;
 }
 </style>

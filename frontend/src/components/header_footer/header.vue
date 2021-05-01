@@ -3,9 +3,9 @@
         <div>
             <img src="../../assets/icon_white_groupo.png" alt="logo-entreprise" class="icon_white"/>
         </div>
-        <div>
+        <button class="reset_button">
             <i class="fas fa-door-open"></i>
-        </div>
+        </button>
 
     </div>
 </template>
@@ -31,5 +31,8 @@
     }
     .icon_white{
         padding: 20px;
+    }
+    img{
+        width: 105px;
     }
 </style>

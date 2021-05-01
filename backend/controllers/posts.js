@@ -35,8 +35,11 @@ exports.getOnePost = (req, res, next) => {
 };
 
 exports.getAllPost = (req, res, next) => {
-    /** @todo add pagination with SQL LIMIT and OFFSET */
-    postModel.getAll()
+    const token = req.headers.authorization.split(" ")[1];
+    const decoded = jwt_decode(token);
+    const userId = decoded.userId;
+
+    postModel.getAll(userId, req.query.offset)
     .then((rows) => {
         res.send(rows);
     })
@@ -46,7 +49,6 @@ exports.getAllPost = (req, res, next) => {
 };
 
 exports.deletePost = (req, res, next) => {
-    /** @TODO check if jwt userId === post.user_id */
     postModel.getOne(req.params.id)
     .then((rows) => {
         const user_id = rows.user_id;
