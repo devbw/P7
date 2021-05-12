@@ -71,33 +71,16 @@ exports.modifyComment = (req, res, next) => {
 }
 
 exports.deleteComment = (req, res, next) => {
-  commentModel.getOne(req.params.commentId)
-  .then((rows) => {
-    const user_id = rows.user_id;
-    const token = req.headers.authorization.split(" ")[1];
-    const decoded = jwt_decode(token);
-    const userId = decoded.userId;
+  const token = req.headers.authorization.split(" ")[1];
+  const decoded = jwt_decode(token);
+  const userId = decoded.userId;
 
-    userModel.getOne(userId)
-    .then((rows) => {
-      const admin = rows[0].user_admin;
-      if( (userId != user_id) && (admin === 0) ) {
-        return res.status(400).send("Vous n'êtes pas autorisé à supprimer ce commentaire");
-      }
-      commentModel.deleteOne(req.params.commentId)
-      .then((rows) => {
-          res.send(rows);
-      })
-      .catch((err) => {
-          console.log(err);
-      })
-    })
-    .catch((err) =>{
-      return res.status(400).send("Vous n'êtes pas autorisé à supprimer ce commentaire");
-    })
+  commentModel.deleteOne(req.params.commentId, userId, userId)
+  .then(() => {
+      res.send("Commentaire supprimé");
   })
   .catch((err) => {
-    res.status(500).send("Vous n'avez pas la possibilité de faire cette action")
+      console.log(err);
   })
 }
 

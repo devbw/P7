@@ -48,7 +48,7 @@ exports.deleteOne = (id) => {
   return new Promise((resolve, reject) => {
 
     const db = connectionDb.getDbConnection();
-    db.query("DELETE FROM Users WHERE id = ?", [id], (err, rows, fields) => {
+    db.query("DELETE FROM Users AS U WHERE U.id = ?", [id], (err, rows, fields) => {
     if(err)
       reject(err);
 
@@ -66,6 +66,20 @@ exports.getOne = (id) => {
       reject(err);
 
     resolve(rows);
+    });
+  });
+};
+
+exports.getAll = () => {
+  return new Promise((resolve, reject) => {
+    const db = connectionDb.getDbConnection();
+    db.query(`SELECT U.*, CONCAT(U.firstname, ' ',  U.lastname) AS username
+    FROM Users AS U
+    ORDER BY U.created DESC`, (err, rows, fields) => {
+      if(err)
+        reject(err);
+
+      resolve(rows);
     });
   });
 };

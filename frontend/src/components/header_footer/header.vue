@@ -3,7 +3,7 @@
         <div>
             <img src="../../assets/icon_white_groupo.png" alt="logo-entreprise" class="icon_white"/>
         </div>
-        <button class="reset_button">
+        <button @click="logout()" class="reset_button">
             <i class="fas fa-door-open"></i>
         </button>
 
@@ -12,7 +12,13 @@
 
 <script>
     export default{
-        name: 'Homeheader'
+        name: 'Homeheader',
+        methods: {
+            logout() {
+                localStorage.removeItem('token');
+                this.$router.push('/user/login');
+            }
+        }
     }
 </script>
 

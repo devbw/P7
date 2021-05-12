@@ -2,6 +2,7 @@ const userModel = require('../models/users');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const jwt_decode = require('jwt-decode');
+const {isAdmin} = require('../services/isadmin');
 
 exports.signUp = (req, res, next) => {
   /** @todo validation */
@@ -66,24 +67,36 @@ exports.deleteAccount = (req, res, next) => {
   const token = req.headers.authorization.split(" ")[1];
   const decoded = jwt_decode(token);
   const userId = decoded.userId;
-  const user_id = parseInt(req.params.id);
 
-  userModel.getOne(userId)
-  .then((rows)=> {
-    const admin = rows[0].user_admin;
-    if( (userId != user_id) && (admin === 0) ) {
+  userModel.deleteOne(userId)
+  .then((rows) => {
+    res.send(rows);
+  })
+  .catch((err) => {
+    return res.status(400).send("Vous n'êtes pas autorisé à supprimer cet utilisateur");
+  })
+}
+
+exports.deleteAccountAdmin = (req, res, next) => {
+  const token = req.headers.authorization.split(" ")[1];
+  const decoded = jwt_decode(token);
+  const userId = decoded.userId;
+
+  isAdmin(userId)
+  .then((isUserAdmin) => {
+    if(isUserAdmin === 0) {
       return res.status(400).send("Vous n'êtes pas autorisé à supprimer cet utilisateur");
     }
     userModel.deleteOne(req.params.id)
     .then((rows) => {
-      res.send(rows);
+      return res.send(rows);
     })
-    .catch((err) => {
-      return res.status(400).send("Vous n'êtes pas autorisé à supprimer cet utilisateur");
+    .catch(() => {
+      return res.status(400).send("Vous n'êtes pas autorisé");
     })
   })
-  .catch((err) => {
-    console.log(err);
+  .catch(() => {
+    return res.status(400).send("L'utilisateur n'existe pas");
   })
 }
 
@@ -95,4 +108,14 @@ exports.getOneUser = (req, res, next) => {
     .catch((err) => {
         console.log(err);
     })
+}
+
+exports.getAllUsers = (req, res, next) => {
+  userModel.getAll()
+  .then((rows) => {
+    res.send(rows);
+  })
+  .catch((err) => {
+    console.log(err);
+  })
 }

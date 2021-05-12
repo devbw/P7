@@ -6,7 +6,7 @@
             <div class="form-login__input-container">
                 <textarea v-model="post_content" class="input" name="lastname" id="lastname" placeholder="Ecrivez votre post ici"></textarea>
             </div>
-            <button class="post_button">POSTER</button>
+            <button @click="sendPost()" class="post_button">POSTER</button>
         </div>
         <home-footer/>
     </div>
@@ -15,18 +15,32 @@
 <script>
 import HomeHeader from '@/components/header_footer/header.vue'
 import HomeFooter from '@/components/header_footer/footer.vue'
+import http from '@/services/http'
 
 export default {
     name: 'Post',
     components: {
     HomeHeader,
     HomeFooter
-  },
-  data() {
-      return {
-          post_content: '',
-      }
-  }
+    },
+    data() {
+        return {
+            post_content: '',
+        }
+    },
+    methods: {
+        sendPost() {
+            http().post('/post', {
+                post_content: this.post_content
+            })
+            .then(() => {
+                this.$router.push("/");
+            })
+            .catch(function (error) {
+                console.log(error);
+            });
+        }
+    }
 }
 </script>
 

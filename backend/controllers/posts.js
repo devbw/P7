@@ -49,34 +49,19 @@ exports.getAllPost = (req, res, next) => {
 };
 
 exports.deletePost = (req, res, next) => {
-    postModel.getOne(req.params.id)
-    .then((rows) => {
-        const user_id = rows.user_id;
-        const token = req.headers.authorization.split(" ")[1];
-        const decoded = jwt_decode(token);
-        const userId = decoded.userId;
 
-        userModel.getOne(userId)
-        .then((rows) => {
-            const admin = rows[0].user_admin;
-            if( (userId !== user_id) && (admin === 0) ) {
-              return res.status(400).send("Vous n'êtes pas autorisé à faire cette action");
-            }
-            postModel.deleteOne(req.params.id)
-            .then((rows) => {
-                res.send(rows);
-            })
-            .catch((err) => {
-                console.log(err);
-            })
-        })
-        .catch((err) => {
-            console.log(err);
-        })
+    const token = req.headers.authorization.split(" ")[1];
+    const decoded = jwt_decode(token);
+    const userId = decoded.userId;
+
+    postModel.deleteOne(req.params.id, userId, userId)
+    .then(() => {
+        res.send("Post supprimé");
     })
     .catch((err) => {
-        console.log(err);
+        res.status(500).send(err);
     })
+
 };
 
 exports.updatePost = (req, res, next) => {

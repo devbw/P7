@@ -18,7 +18,10 @@ exports.getOne = (id) => {
   return new Promise((resolve, reject) => {
 
     const db = connectionDb.getDbConnection();
-    db.query('SELECT * FROM Posts WHERE id = ?', [id] , (err, rows, fields) => {
+    db.query(`SELECT P.*, CONCAT(U.firstname, ' ',  U.lastname) AS username
+    FROM Posts AS P
+    LEFT JOIN Users AS U ON P.user_id = U.id
+    WHERE P.id = ?`, [id] , (err, rows, fields) => {
       if(err || rows.length === 0)
         reject(err);
 
@@ -38,7 +41,7 @@ exports.getAll = (user_id, offsetnb) => {
     LEFT JOIN Likes AS L2 ON L2.post_id = P.id AND L2.user_id = ?
     GROUP BY P.id
     ORDER BY P.created DESC
-    LIMIT 25 OFFSET ?`, [user_id, parseInt(offsetnb, 10)],
+    LIMIT 15 OFFSET ?`, [user_id, parseInt(offsetnb, 10)],
     (err, rows, fields) => {
       if(err)
         reject(err);
@@ -48,11 +51,17 @@ exports.getAll = (user_id, offsetnb) => {
   });
 };
 
-exports.deleteOne = (id) => {
+exports.deleteOne = (id, userId) => {
   return new Promise((resolve, reject) => {
 
     const db = connectionDb.getDbConnection();
-    db.query('DELETE FROM Posts WHERE id = ?', [id] , (err, rows, fields) => {
+    db.query(`DELETE
+    FROM Posts AS P
+    WHERE P.id = ?
+    AND (
+        P.user_id = ?
+        OR ( SELECT U.id FROM Users as U WHERE U.id = ? AND U.user_admin = 1 ) IS NOT NULL
+    )`, [id, userId, userId] , (err, rows, fields) => {
       if(err)
         reject(err);
 

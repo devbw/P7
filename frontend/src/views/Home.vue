@@ -2,9 +2,10 @@
   <div class="main_container_flex">
     <div><home-header/></div>
     <div class="content">
-      <div class="post_content" v-for="(post, idx) in posts" :key="idx">
+      <div class="post_content slide-in-bottom" v-for="(post, idx) in posts" :key="idx">
         <div class="div_post_name">{{ post.username }}</div>
         <div class="div_post_content">{{ post.post_content }}</div>
+        <div style="display: block">{{ post.created }}</div>
         <div class="icon_actions">
           <button v-if="post.userliked" class="reset_button liked_button" @click="unlikePost(post.id)">
             <span>{{ post.nblikes }}</span>
@@ -14,10 +15,10 @@
             <span>{{ post.nblikes }}</span>
             <i class="far fa-heart"></i>
           </button>
-          <button class="reset_button">
+          <router-link tag="button" :to="`/single/${post.id}`" class="reset_button">
             <span>{{ post.nbcomments }}</span>
             <i class="far fa-comments"></i>
-          </button>
+          </router-link>
         </div>
       </div>
       <button class="div_button_reload">
@@ -119,14 +120,6 @@ p{
   max-width: 280px;
   height: 57px;
   margin-top: 12px;
-}
-.post_content{
-  margin-top: 20px;
-  padding: 20px 10px 10px 10px;
-  width: 85%;
-  max-width: 700px;
-  border-radius: 5px;
-  box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
 }
 .div_post_content{
   display: flex;

@@ -1,7 +1,7 @@
 <template>
 <div class="background">
   <div class="form-login__div-container">
-    <img src="../assets/icon_white.png"/>
+    <img class="scale-up-center" src="../assets/icon_white.png"/>
     <p>Votre reseau social !</p>
   </div>
   <div>
