@@ -17,6 +17,7 @@
 import HomeHeader from '@/components/header_footer/header.vue'
 import HomeFooter from '@/components/header_footer/footer.vue'
 import http from '@/services/http'
+import moment from 'moment';
 
 export default {
   name: 'AdminDelete',
@@ -39,10 +40,8 @@ export default {
         console.log(error);
       })
     },
-    convertDate(timestamp) {
-      var regex=/^([0-9]{2,4})-([0-1][0-9])-([0-3][0-9]) (?:([0-2][0-9]):([0-5][0-9]):([0-5][0-9]))?$/;
-      var parts=timestamp.replace(regex,"$1 $2 $3 $4 $5 $6").split(' ');
-      return new Date(parts[0],parts[1]-1,parts[2],parts[3],parts[4],parts[5]);
+    convertDate(date) {
+      return moment(date).subtract(10, 'days').calendar();
     },
     deleteOne(id) {
       http().delete(`user/delete/${id}`)

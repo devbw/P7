@@ -9,6 +9,7 @@
           </div>
           <div class="div_post_name">{{ post.username }}</div>
           <div class="div_post_content">{{ post.post_content }}</div>
+          <div class="comment_date">{{ convertDate(post.created) }}</div>
         </div>
         <modale :afficher="afficher" :toggleModale="toggleModale" :getComments="getComments"></modale>
         <div>
@@ -21,6 +22,7 @@
           </div>
           <div class="div_post_name">{{ comment.username }}</div>
           <div class="div_post_content">{{ comment.comment }}</div>
+          <div class="comment_date">{{ convertDate(comment.created) }}</div>
         </div>
       </div>
       <home-footer/>
@@ -33,6 +35,7 @@ import HomeFooter from '@/components/header_footer/footer.vue'
 import Modale from '@/components/Modale.vue'
 import http from '@/services/http'
 import decodeToken from '@/services/decode'
+import moment from 'moment';
 
 export default {
     name: 'Single',
@@ -140,7 +143,10 @@ export default {
           if(this.admin == 0) {
               this.isUserAdmin = false;
           }
-      }
+      },
+      convertDate(date) {
+        return moment(date).subtract(10, 'days').calendar();
+      },
     }
 }
 </script>
@@ -187,5 +193,10 @@ export default {
   }
   .postcomment{
     height: 40px;
+  }
+  .comment_date{
+    color: #363636;
+    font-size : 0.7em;
+    margin-top: 5px;
   }
 </style>

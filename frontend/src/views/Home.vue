@@ -5,7 +5,7 @@
       <div class="post_content slide-in-bottom" v-for="(post, idx) in posts" :key="idx">
         <div class="div_post_name">{{ post.username }}</div>
         <div class="div_post_content">{{ post.post_content }}</div>
-        <div style="display: block">{{ post.created }}</div>
+        <div class="post_date" style="display: block">{{ convertDate(post.created) }} </div>
         <div class="icon_actions">
           <button v-if="post.userliked" class="reset_button liked_button" @click="unlikePost(post.id)">
             <span>{{ post.nblikes }}</span>
@@ -33,6 +33,7 @@
 import HomeHeader from '@/components/header_footer/header.vue'
 import HomeFooter from '@/components/header_footer/footer.vue'
 import http from '@/services/http'
+import moment from 'moment';
 
 export default {
   name: 'Home',
@@ -90,7 +91,10 @@ export default {
           this.processing = false;
         })
       }
-    }
+    },
+    convertDate(date) {
+      return moment(date).subtract(10, 'days').calendar();
+    },
   }
 }
 </script>
@@ -158,5 +162,10 @@ p{
 }
 .liked_button > i{
   color:#9742EC;
+}
+.post_date{
+  color: #363636;
+  font-size : 0.7em;
+  margin-top: 5px;
 }
 </style>
