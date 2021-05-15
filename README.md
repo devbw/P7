@@ -1,6 +1,6 @@
 # P7
 
-Lancer le Backend :
+LANCER LE BACKEND :
 
 Dans un terminal faire :
 
@@ -11,7 +11,7 @@ Dans un terminal faire :
 - node server (ou nodemon server si vous installez nodemon)
 
 
-Lancer le Frontend :
+LANCER LE FRONTEND :
 
 Dans un terminal faire :
 
