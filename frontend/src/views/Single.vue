@@ -3,9 +3,8 @@
       <home-header/>
       <div class="content">
         <div class="post_content add">
-          <div class="container_action_buttons" v-if="isUserAdmin || isCurrent">
-            <i class="fas fa-pencil-alt"></i>
-            <i class="fas fa-times" @click="deletePost(post.id)"></i>
+          <div class="container_action_buttons" v-if="isUserAdmin || (post.user_id === currentId)">
+            <i class="fas fa-trash-alt" @click="deletePost(post.id)"></i>
           </div>
           <div class="div_post_name">{{ post.username }}</div>
           <div class="div_post_content">{{ post.post_content }}</div>
@@ -17,8 +16,7 @@
         </div>
         <div class="comment_content slide-in-bottom" v-for="(comment, idx) in comments" :key="idx">
           <div class="container_action_buttons" v-if="isUserAdmin || (comment.user_id === currentId)">
-            <i class="fas fa-pencil-alt"></i>
-            <i class="fas fa-times" @click="deleteComment(post.id, comment.id)"></i>
+            <i class="fas fa-trash-alt" @click="deleteComment(post.id, comment.id)"></i>
           </div>
           <div class="div_post_name">{{ comment.username }}</div>
           <div class="div_post_content">{{ comment.comment }}</div>
@@ -187,8 +185,8 @@ export default {
     margin-left: 15px;
     cursor: pointer;
   }
-  .fa-times{
-    font-size: 21px;
+  .fa-trash-alt{
+    font-size: 15px;
     padding:0px;
   }
   .postcomment{

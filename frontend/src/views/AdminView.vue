@@ -8,7 +8,6 @@
     <div id="connect-text">ADMIN</div>
   </div>
   <div class="form-login__input-container">
-    <router-link tag="button" to="/" class="button">AJOUTER UN COMPTE</router-link>
     <router-link tag="button" to="/admin-delete" class="button">SUPPRIMER UN COMPTE</router-link>
     <router-link tag="button" class="button_home" to='/'>RETOURNER A L'ACCUEIL</router-link>
   </div>

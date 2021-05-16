@@ -41,7 +41,7 @@ exports.getAll = (user_id, offsetnb) => {
     LEFT JOIN Likes AS L2 ON L2.post_id = P.id AND L2.user_id = ?
     GROUP BY P.id
     ORDER BY P.created DESC
-    LIMIT 15 OFFSET ?`, [user_id, parseInt(offsetnb, 10)],
+    LIMIT 10 OFFSET ?`, [user_id, parseInt(offsetnb, 10)],
     (err, rows, fields) => {
       if(err)
         reject(err);

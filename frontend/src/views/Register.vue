@@ -7,10 +7,9 @@
   <div>
     <div id="connect-text">JE M'INSCRIS !</div>
     <form-register />
-    <router-link tag="div" to="/user/login" id="login-text">Déjà inscrit ? Connectez-vous ici !</router-link>
   </div>
   <div>
-    <img src="../assets/icon-left-font-monochrome-white.png"/>
+    <router-link tag="div" to="/user/login" id="login-text">Déjà inscrit ? Connectez-vous ici !</router-link>
   </div>
 </div>
 </template>
@@ -41,5 +40,11 @@ export default {
     font-size: 1.3em;
     color : white;
     opacity: 0.5;
+  }
+  .form-login__div-container{
+    margin-top: 15px;
+  }
+  #login-text{
+    margin-bottom: 25px;
   }
 </style>
