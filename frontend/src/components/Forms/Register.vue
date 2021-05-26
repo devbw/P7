@@ -1,19 +1,19 @@
 <template>
   <div class='hello'>
     <div class="form-login__input-container">
-      <input v-model="firstname" class="input" type='text' name="firstname" id="firstname" placeholder="Prénom">
+      <input v-model="firstname" class="input" type='text' name="firstname" id="firstname" placeholder="Prénom" required minlength="2">
     </div>
 
     <div class="form-login__input-container">
-      <input v-model="lastname" class="input" type='text' name="lastname" id="lastname" placeholder="Nom">
+      <input v-model="lastname" class="input" type='text' name="lastname" id="lastname" placeholder="Nom" required minlength="2">
     </div>
 
     <div class="form-login__input-container">
-      <input v-model="email" class="input" type='email' name="email" id="email" placeholder="E-mail">
+      <input v-model="email" class="input" type='email' name="email" id="email" placeholder="E-mail" required>
     </div>
 
     <div class="form-login__input-container">
-      <input v-model="password" class="input" type='password' name="password" id="password" placeholder="Mot de passe">
+      <input v-model="password" class="input" type='password' name="password" id="password" placeholder="Mot de passe" required minlength="6">
     </div>
 
     <div class="form-login__input-container">
@@ -75,5 +75,11 @@ export default{
     max-width: 280px;
     height: 57px;
     margin-top: 12px;
+  }
+  input:invalid {
+    border: 1px solid red;
+  }
+  input:valid{
+    border: 1px solid rgb(57, 216, 57);
   }
 </style>
