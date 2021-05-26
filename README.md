@@ -23,3 +23,6 @@ Dans un terminal faire :
 Commandes utiles :
 
 - sudo kill -9 $(sudo lsof -t -i:3000) (LINUX)
+
+Informations utiles :
+- le fichier .env n'est pas censé être push, mais pour les besoins du projet, il est présent sur le dépôt.
