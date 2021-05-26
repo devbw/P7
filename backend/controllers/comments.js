@@ -30,7 +30,6 @@ exports.createComment = (req, res, next) => {
           res.send(rows);
         })
         .catch((err) => {
-          console.error(err);
           res.status(500).send();
         });
     })
@@ -61,7 +60,6 @@ exports.modifyComment = (req, res, next) => {
       res.send(rows);
     })
     .catch((err) => {
-      console.error(err);
       res.status(500).send();
     });
   })
@@ -77,10 +75,10 @@ exports.deleteComment = (req, res, next) => {
 
   commentModel.deleteOne(req.params.commentId, userId, userId)
   .then(() => {
-      res.send("Commentaire supprimé");
+    res.send("Commentaire supprimé");
   })
-  .catch((err) => {
-      console.log(err);
+  .catch(() => {
+    res.status(500).send();
   })
 }
 
@@ -99,7 +97,7 @@ exports.getCommentsPost = (req, res, next) => {
   .then((rows) => {
     res.send(rows);
   })
-  .catch((err) => {
-    console.log(err);
+  .catch(() => {
+    res.status(500).send();
   })
 }

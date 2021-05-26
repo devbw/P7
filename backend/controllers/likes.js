@@ -11,10 +11,10 @@ exports.postLike = (req, res, next) => {
 
     likesModel.createLike(userId, postId)
     .then((rows) => {
-        res.send("Post liked successfully !");
+      res.send("Post liked successfully !");
     })
     .catch((err) => {
-        res.status(400).send("Impossible de liker");
+      res.status(400).send("Impossible de liker");
     })
   }
 };
@@ -28,9 +28,9 @@ exports.deleteLike = (req, res, next) => {
 
   likesModel.deleteLike(postId, userId)
   .then((rows) => {
-      res.send(rows);
+    res.send(rows);
   })
-  .catch((err) => {
-      console.log(err);
+  .catch(() => {
+    res.status(500).send();
   })
 }

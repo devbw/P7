@@ -30,11 +30,9 @@ exports.findOneBy = (field, value) => {
 
     db.query(sql, (error, user) => {
       if (user.length === 0) {
-        // return to catch
         reject(new Error("Votre adresse mail est invalide"));
       }
       const selectedUser = user[0];
-      // return to then
       resolve(selectedUser);
     });
   });

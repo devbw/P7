@@ -59,8 +59,8 @@ exports.deleteOne = (id, userId) => {
     FROM Posts AS P
     WHERE P.id = ?
     AND (
-        P.user_id = ?
-        OR ( SELECT U.id FROM Users as U WHERE U.id = ? AND U.user_admin = 1 ) IS NOT NULL
+    P.user_id = ?
+    OR ( SELECT U.id FROM Users as U WHERE U.id = ? AND U.user_admin = 1 ) IS NOT NULL
     )`, [id, userId, userId] , (err, rows, fields) => {
       if(err)
         reject(err);

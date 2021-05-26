@@ -11,7 +11,6 @@ exports.signUp = (req, res, next) => {
     res.send(rows);
   })
   .catch((err) => {
-    console.dir(err);
     res.send(err);
   })
 }
@@ -54,8 +53,6 @@ exports.login = (req, res, next) => {
         });
     })
     .catch((err) => {
-      console.dir(err);
-
       res.status(401).json({
         message: err,
       });
@@ -63,7 +60,6 @@ exports.login = (req, res, next) => {
 }
 
 exports.deleteAccount = (req, res, next) => {
-  //TODO jwt userId === user.id
   const token = req.headers.authorization.split(" ")[1];
   const decoded = jwt_decode(token);
   const userId = decoded.userId;

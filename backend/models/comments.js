@@ -49,8 +49,8 @@ exports.deleteOne = (id, userId) => {
     FROM Comments AS C
     WHERE C.id = ?
     AND (
-        C.user_id = ?
-        OR ( SELECT U.id FROM Users as U WHERE U.id = ? AND U.user_admin = 1 ) IS NOT NULL
+    C.user_id = ?
+    OR ( SELECT U.id FROM Users as U WHERE U.id = ? AND U.user_admin = 1 ) IS NOT NULL
     )`, [id, userId, userId] , (err, rows, fields) => {
       if(err)
         reject(err);

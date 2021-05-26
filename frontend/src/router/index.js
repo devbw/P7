@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import decodeToken from '@/services/decode'
+import http from '@/services/http'
 
 Vue.use(VueRouter)
 
@@ -82,11 +84,20 @@ const routes = [
     name: 'AdminView',
     component: () => import(/* webpackChunkName: "post" */ '../views/AdminView.vue'),
     beforeEnter: (to, from, next) => {
-      if(!localStorage.getItem('token')) {
-        next("/user/login");
-      } else {
-        next();
-      }
+      let userToken = localStorage.getItem('token');
+      let decoded = decodeToken(userToken);
+
+      http().get(`/user/${decoded.userId}`)
+      .then((response) => {
+          let admin = response.data[0].user_admin;
+          if(admin == 0) {
+            next("/user/login");
+          }
+          if(admin == 1) {
+            next();
+          }
+      })
+      .catch(error => console.log(error));
     }
   },
   {
@@ -94,11 +105,20 @@ const routes = [
     name: 'AdminDelete',
     component: () => import(/* webpackChunkName: "post" */ '../views/AdminDelete.vue'),
     beforeEnter: (to, from, next) => {
-      if(!localStorage.getItem('token')) {
-        next("/user/login");
-      } else {
-        next();
-      }
+      let userToken = localStorage.getItem('token');
+      let decoded = decodeToken(userToken);
+
+      http().get(`/user/${decoded.userId}`)
+      .then((response) => {
+          let admin = response.data[0].user_admin;
+          if(admin == 0) {
+            next("/user/login");
+          }
+          if(admin == 1) {
+            next();
+          }
+      })
+      .catch(error => console.log(error));
     }
   },
 ]

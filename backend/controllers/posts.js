@@ -1,5 +1,4 @@
 const postModel = require('../models/posts');
-const userModel = require('../models/users');
 const jwt_decode = require('jwt-decode');
 const utils = require('../services/utils');
 const isLength = require('validator/lib/isLength');
@@ -18,8 +17,8 @@ exports.createPost = (req, res, next) => {
     .then((rows) => {
       res.send(rows);
     })
-    .catch((err) => {
-      console.log(err);
+    .catch(() => {
+        res.status(500).send();
     })
 };
 
@@ -29,8 +28,8 @@ exports.getOnePost = (req, res, next) => {
     .then((rows) => {
         res.send(rows);
     })
-    .catch((err) => {
-        console.log(err);
+    .catch(() => {
+        res.status(500).send();
     })
 };
 
@@ -43,8 +42,8 @@ exports.getAllPost = (req, res, next) => {
     .then((rows) => {
         res.send(rows);
     })
-    .catch((err) => {
-        console.log(err);
+    .catch(() => {
+        res.status(500).send();
     })
 };
 
@@ -65,7 +64,6 @@ exports.deletePost = (req, res, next) => {
 };
 
 exports.updatePost = (req, res, next) => {
-    /** @TODO check if jwt userId === post.user_id + validation */
 
     postModel.getOne(req.params.id)
     .then((rows) => {
@@ -86,11 +84,11 @@ exports.updatePost = (req, res, next) => {
         .then((rows) => {
             res.send(rows);
         })
-        .catch((err) => {
-            console.log(err);
+        .catch(() => {
+            res.status(500).send();
         })
     })
-    .catch((err) => {
-        console.log(err);
+    .catch(() => {
+        res.status(500).send();
     })
 };
