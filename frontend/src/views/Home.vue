@@ -103,7 +103,7 @@ export default {
 span{
   font-size: 1.5em;
   margin-right: 3px;
-  color: #9742EC;
+  color: #fd2d01;
 }
 .div_button_reload{
   margin: 8px;
@@ -132,12 +132,12 @@ p{
   margin-top: 5px;
 }
 .div_post_name{
-  color: #9742EC;
+  color: #fd2d01;
   font-weight: bold;
 }
 .fa-sync{
   font-size: 1.5em;
-  color: #9742EC;
+  color: #fd2d01;
   padding: 10px;
 }
 .fa-heart{
@@ -146,7 +146,7 @@ p{
   padding-top: 7px;
 }
 .far:hover{
-  color: #9742EC;
+  color: #fd2d01;
 }
 .fa-comments{
   font-size: 1.5em;
@@ -161,7 +161,7 @@ p{
   margin-top: 15px;
 }
 .liked_button > i{
-  color:#9742EC;
+  color:#fd2d01;
 }
 .post_date{
   color: #363636;

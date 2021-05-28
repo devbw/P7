@@ -55,7 +55,7 @@ body {
   width: 100%;
   height: 100%;
   background-color: white;
-  color: #9742EC;
+  color: #fd2d01;
   font-size: 18px;
   border-radius: 10px;
   border: none;
@@ -64,7 +64,7 @@ body {
 .button_home{
   width: 100%;
   height: 100%;
-  background-color: #9742EC;
+  background-color: #fd2d01;
   color: white;
   font-size: 18px;
   border-radius: 10px;
@@ -74,7 +74,7 @@ body {
 }
 .button_home:hover{
   background-color: white;
-  color: #9742EC;
+  color: #fd2d01;
   border:none;
 }
 #login-text{
@@ -82,7 +82,7 @@ body {
   margin-top: 15px;
 }
 .background{
-  background-color: #9742EC;
+  background-color: #fd2d01;
   height: 100%;
   display: flex;
   justify-content: space-between;

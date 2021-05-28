@@ -49,7 +49,7 @@ export default {
     box-sizing: border-box;
     width: 100%;
     height: 100%;
-    color: #9742EC;
+    color: #fd2d01;
     font-size: 18px;
     font-family: 'Roboto', sans-serif;
     border: none;
@@ -62,15 +62,15 @@ export default {
   }
   .post_button{
     background-color: transparent;
-    color: #9742EC;
+    color: #fd2d01;
     font-size: 18px;
     border-radius: 10px;
     padding: 15px 35px;
-    border: 1px solid #9742EC;
+    border: 1px solid #fd2d01;
     cursor: pointer;
   }
   .post_button:hover{
-    background-color: #9742EC;
+    background-color: #fd2d01;
     color: white;
   }
   .content{

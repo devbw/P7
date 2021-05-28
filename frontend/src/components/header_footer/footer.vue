@@ -61,7 +61,7 @@
 
 <style scoped>
     .container_header{
-        background-color: #9742EC;
+        background-color: #fd2d01;
         width: 100%;
         height: 45px;
         display: flex;

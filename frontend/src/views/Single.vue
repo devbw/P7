@@ -166,13 +166,13 @@ export default {
     box-shadow: 0 3px 6px rgba(0,0,0,0.16), 0 3px 6px rgba(0,0,0,0.23);
   }
   .post_button{
-    background-color: #9742EC;
+    background-color: #fd2d01;
     color: white;
     margin-top: 20px;
     font-size: 14px;
     border-radius: 10px;
     padding: 5px 25px;
-    border: 1px solid #9742EC;
+    border: 1px solid #fd2d01;
     cursor: pointer;
   }
   .container_action_buttons{
@@ -181,7 +181,7 @@ export default {
     align-items: center;
   }
   .fas{
-    color:#9742EC;
+    color:#fd2d01;
     margin-left: 15px;
     cursor: pointer;
   }

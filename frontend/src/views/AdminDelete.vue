@@ -65,17 +65,17 @@ export default {
 span{
   font-size: 1.5em;
   margin-right: 3px;
-  color: #9742EC;
+  color: #fd2d01;
 }
 .div_post_name{
-  color: #9742EC;
+  color: #fd2d01;
   font-weight: bold;
   font-size: 20px;
 }
 .delete_button{
   margin: 10px 0px 0px 0px;
   color : white;
-  background-color: #9742EC;
+  background-color: #fd2d01;
   border: none;
   border-radius: 5px;
   padding: 5px;

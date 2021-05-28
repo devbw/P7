@@ -2,7 +2,6 @@ const connectionDb = require('../services/connection-bdd');
 const bcrypt = require('bcrypt');
 const mysql = require("mysql");
 
-
 exports.create = (post) => {
   return new Promise((resolve, reject) => {
     const db = connectionDb.getDbConnection();

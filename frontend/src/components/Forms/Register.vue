@@ -13,7 +13,7 @@
     </div>
 
     <div class="form-login__input-container">
-      <input v-model="password" class="input" type='password' name="password" id="password" placeholder="Mot de passe" required minlength="6">
+      <input v-model="password" class="input" type='password' name="password" id="password" placeholder="Mot de passe" required minlength="8">
     </div>
 
     <div class="form-login__input-container">

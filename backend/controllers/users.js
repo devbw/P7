@@ -3,9 +3,21 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const jwt_decode = require('jwt-decode');
 const {isAdmin} = require('../services/isadmin');
+const validator = require('validator');
 
 exports.signUp = (req, res, next) => {
-  /** @todo validation */
+  let email = req.body.email;
+  let password = req.body.password;
+  if(validator.isEmail(email) === false) {
+    return res.status(400).json({
+      message: "Email non conforme",
+    });
+  }
+  if(validator.isStrongPassword(password,{minLength: 8, minLowercase: 1, minUppercase: 1, minNumbers: 1, minSymbols: 0, returnScore: false,}) === false){
+    return res.status(400).json({
+      message: "Mot de passe non conforme",
+    });
+  }
   userModel.create(req.body)
   .then((rows) => {
     res.send(rows);
@@ -16,7 +28,6 @@ exports.signUp = (req, res, next) => {
 }
 
 exports.login = (req, res, next) => {
-  /** @todo validation */
   const { email, password } = req.body;
 
   if (!email || !password) {
